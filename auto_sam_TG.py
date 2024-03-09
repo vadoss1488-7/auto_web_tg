@@ -146,20 +146,16 @@ def list_posts(driver, log, coms, groups, counter):
                         var commentsButton = element.querySelector('.CommentButton');
                         commentsButton.click();
                         """
-                        driver.execute_script(js)
-                        a = 0
                         try:
                             WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, f'//*[@id="message{post_id}"]/div[3]/div/div[2]')))
                         except Exception:
                             print('messange without coms')
                             continue
-                        while a != 1:
-                            try:
-                                driver.execute_script(js)
-                                WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="editable-message-text"]')))
-                                a += 1
-                            except Exception:
-                                pass
+                        driver.execute_script(js)
+                        try:
+                            WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="editable-message-text"]')))
+                        except Exception:
+                            break
                         print('open comments')
                         log.write('coms open\n')
                         try:
